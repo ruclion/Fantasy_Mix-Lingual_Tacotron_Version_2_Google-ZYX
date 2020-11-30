@@ -10,9 +10,10 @@ _pad        = '_'
 _eos        = '~'
 _characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!\'\"(),-.:;? %/'
 _digits     = '0123456789'
+_cn_prosody = '* $,#%.，。？！‘’：；、（）【】'
 
 # Prepend "@" to ARPAbet symbols to ensure uniqueness (some are the same as uppercase letters):
 #_arpabet = ['@' + s for s in cmudict.valid_symbols]
 
 # Export all symbols:
-symbols = [_pad, _eos] + list(_characters) + list(_digits) #+ _arpabet
+symbols = [_pad, _eos] + list(_characters) + list(_digits) + list(_cn_prosody)

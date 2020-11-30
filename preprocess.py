@@ -8,6 +8,8 @@ from datasets import ljspeech
 from datasets import databaker
 from datasets import thcoss
 from datasets import Huawei
+from datasets import chunchun_CN
+from datasets import chunchun_EN
 
 def write_metadata(metadata, out_dir):
 	with open(os.path.join(out_dir, 'train.txt'), 'w', encoding='utf-8') as f:
@@ -30,7 +32,7 @@ def main():
 	parser.add_argument('--base_dir', default='')
 	parser.add_argument('--hparams', default='',
 		help='Hyperparameter overrides as a comma-separated list of name=value pairs')
-	parser.add_argument('--dataset', default='all')
+	parser.add_argument('--dataset', default='chunchun')
 	parser.add_argument('--output', default='training_data')
 	parser.add_argument('--n_jobs', type=int, default=cpu_count())
 	args = parser.parse_args()
@@ -49,7 +51,19 @@ def main():
 	
 	# Process dataset
 	metadata = []
-	if args.dataset == 'all':
+	if args.dataset == 'chunchun':
+		use_prosody = True
+
+		in_dir = os.path.join(args.base_dir, 'chunchun/english/chunchun_english_lj')
+		print('processing chunchun CN.../n')
+		metadata_1 = chunchun_EN.build_from_path(modified_hp, 0, 0, in_dir, mel_dir, lin_dir, wav_dir, args.n_jobs, tqdm=tqdm)
+
+		in_dir = os.path.join(args.base_dir, 'chunchun/chinese/chunchun_8k_all_v4')
+		print('processing chunchun EN.../n')
+		metadata_2 = chunchun_CN.build_from_path_CN(modified_hp, 0, 1, in_dir, use_prosody, mel_dir, lin_dir, wav_dir, args.n_jobs,tqdm=tqdm)
+		metadata = metadata_1 + metadata_2
+		
+	elif args.dataset == 'all':
 		use_prosody = False
 
 		in_dir = os.path.join(args.base_dir, 'LJSpeech-1.1')

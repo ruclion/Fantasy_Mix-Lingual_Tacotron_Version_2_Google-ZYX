@@ -8,5 +8,9 @@ TTS.Pachira.zhcmn            10713句		说话人6 汉语1   编号010001-620398
 TTS.DataBaker.enus.M.DB1     1000句		说话人7 英语0   编号x000001-x001000	
 TTS.DataBaker.enus.F.DB1	1000句		说话人8 英语0   编号y000001-y001000	
 TTS.DataBaker.enus.F.DB2	1000句		说话人9 英语0   编号z000001-z001000
+------------------------------------------------------------------------------------
+独立用来平安实习:
+chunchun_EN  说话人0 英语0   编号chunchun_EN开头(preprocess后)
+chunchun_CN  说话人0 汉语1   编号chunchun_CN开头(preprocess后)
 
 
