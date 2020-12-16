@@ -7,14 +7,14 @@ import tensorflow as tf
 from hparams import hparams
 from infolog import log
 from tacotron.synthesize import tacotron_synthesize
-from zh_cn import G2P
+# from zh_cn import G2P
 
 def prepare_run(args, weight):
 	modified_hp = hparams.parse(args.hparams)
 	os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 	run_name = args.name or args.tacotron_name or args.model
-	taco_checkpoint = os.path.join('Tacotron_VAE/logs-' + run_name + weight , 'taco_' + args.checkpoint)
+	taco_checkpoint = os.path.join('logs-' + run_name + weight , 'taco_' + args.checkpoint)
 	return taco_checkpoint, modified_hp
 
 def get_sentences(args, websen=None):
@@ -25,7 +25,7 @@ def get_sentences(args, websen=None):
 
 	else:
 		with open(args.text_list, 'rb') as f:
-			a_sentences = list(map(lambda l: l.decode("utf-8")[:-1], f.readlines()))
+			a_sentences = list(map(lambda l: l.decode("utf-8")[:], f.readlines()))
 	print(a_sentences)
 	sentences=[]
 	speaker_labels=[]
@@ -36,7 +36,7 @@ def get_sentences(args, websen=None):
 		speaker_labels.append(int(line[1]))
 		#0 denotes English, 1 denotes Chinese
 		language_labels.append(int(line[2]))
-	g2p=G2P()
+	# g2p=G2P()
 	#sentences = [g2p.convert(i) for i in sentences]
 	return sentences, speaker_labels, language_labels
 
